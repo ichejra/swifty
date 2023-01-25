@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, {SvgProps, Path, Polyline} from 'react-native-svg';
+import * as React from "react";
+import Svg, { SvgProps, Path, Polyline } from "react-native-svg";
 
 const ChevronLeft = (props: SvgProps) => (
   <Svg
@@ -11,7 +11,8 @@ const ChevronLeft = (props: SvgProps) => (
     fill="none"
     strokeLinecap="round"
     strokeLinejoin="round"
-    {...props}>
+    {...props}
+  >
     <Path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <Polyline points="15 6 9 12 15 18" />
   </Svg>

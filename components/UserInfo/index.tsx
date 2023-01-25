@@ -1,23 +1,23 @@
-import React from 'react';
-import FastImage from 'react-native-fast-image';
-import * as Progress from 'react-native-progress';
-import {StyleSheet, Text, View, Linking} from 'react-native';
+import React from "react";
+import FastImage from "react-native-fast-image";
+import * as Progress from "react-native-progress";
+import { StyleSheet, Text, View, Linking } from "react-native";
 
 import {
   AtIcon,
   PhoneIcon,
   MapPinIcon,
   WalletIcon,
-} from '../../components/icons';
-import Trophy from '../../components/icons/Trophy';
+} from "../../components/icons";
+import Trophy from "../../components/icons/Trophy";
 
 const UserInfo = () => {
   return (
     <View style={styles.containerStyle}>
       <FastImage
-        source={{uri: 'https://zupimages.net/up/22/34/868j.jpg'}}
+        source={{ uri: "https://zupimages.net/up/22/34/868j.jpg" }}
         style={styles.imageStyle}
-        resizeMode={'cover'}
+        resizeMode={"cover"}
       />
       <Text style={styles.nameStyle}>Imane Chejra</Text>
       <Text style={styles.loginStyle}>ichejra</Text>
@@ -33,7 +33,8 @@ const UserInfo = () => {
               style={styles.pressableStyle}
               onPress={() => {
                 Linking.openURL(`tel: +212 650253698`);
-              }}>
+              }}
+            >
               +212 650253698
             </Text>
           </View>
@@ -46,7 +47,8 @@ const UserInfo = () => {
                   `mailto:hello@hello.com?subject=SendMail&body=Description`,
                 );
               }}
-              style={styles.pressableStyle}>
+              style={styles.pressableStyle}
+            >
               hello@hello.com
             </Text>
           </View>
@@ -88,9 +90,9 @@ export default UserInfo;
 const styles = StyleSheet.create({
   containerStyle: {
     height: 350,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   imageStyle: {
     width: 100,
@@ -99,71 +101,71 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   nameStyle: {
-    color: '#f6f6f6',
+    color: "#f6f6f6",
     letterSpacing: 1,
     fontSize: 15,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   loginStyle: {
-    color: '#f6f6f6',
+    color: "#f6f6f6",
     letterSpacing: 1,
     fontSize: 15,
     marginBottom: 5,
   },
   infoContainer: {
-    width: '100%',
-    flexDirection: 'row',
+    width: "100%",
+    flexDirection: "row",
     paddingHorizontal: 20,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   flex2: {
     flex: 2,
   },
   fieldContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+    flexDirection: "row",
+    alignItems: "flex-end",
     marginBottom: 5,
   },
   mt5: {
     marginTop: 5,
   },
   valueStyle: {
-    color: '#f6f6f6',
-    fontWeight: 'bold',
+    color: "#f6f6f6",
+    fontWeight: "bold",
   },
   keyStyle: {
-    color: '#f6f6f6',
+    color: "#f6f6f6",
     marginHorizontal: 5,
   },
   levelContainer: {
     marginTop: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   campusCityStyle: {
-    fontWeight: 'bold',
-    color: '#f6f6f6',
+    fontWeight: "bold",
+    color: "#f6f6f6",
     marginHorizontal: 5,
   },
   pressableStyle: {
-    fontWeight: 'bold',
-    color: '#01BABC',
+    fontWeight: "bold",
+    color: "#01BABC",
     marginHorizontal: 5,
     borderBottomWidth: 1,
-    borderBottomColor: '#01BABC',
+    borderBottomColor: "#01BABC",
   },
   flex1: {
     flex: 1,
   },
   justifyCenter: {
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   spaceBetween: {
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   alignEnd: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
   },
 });

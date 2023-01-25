@@ -1,17 +1,17 @@
-import React from 'react';
+import React from "react";
 import {
-  Platform,
-  StyleProp,
-  StyleSheet,
   Text,
   View,
+  Platform,
   ViewStyle,
-} from 'react-native';
-import {Button} from '@rneui/base';
-import LinearGradient from 'react-native-linear-gradient';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+  StyleProp,
+  StyleSheet,
+} from "react-native";
+import { Button } from "@rneui/base";
+import LinearGradient from "react-native-linear-gradient";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import {ChevronLeftIcon} from '../icons';
+import { ChevronLeftIcon } from "../icons";
 
 interface ICustomHeaderProps {
   title: string;
@@ -27,14 +27,14 @@ const CustomHeader = (props: ICustomHeaderProps) => {
   const {
     title,
     goBack,
-    bgColor = '#2f2f2f',
+    bgColor = "#2f2f2f",
     containerStyle,
-    color = '#01dade',
+    color = "#01dade",
     isGradient = false,
   } = props;
   const insets = useSafeAreaInsets();
   const iosStatusBarSpacing = {
-    paddingTop: Platform.OS === 'ios' ? insets.top : 0,
+    paddingTop: Platform.OS === "ios" ? insets.top : 0,
   };
 
   return (
@@ -43,21 +43,22 @@ const CustomHeader = (props: ICustomHeaderProps) => {
         containerStyle,
         iosStatusBarSpacing,
         styles.containerStyle,
-        {backgroundColor: bgColor},
-      ]}>
+        { backgroundColor: bgColor },
+      ]}
+    >
       <Button
         icon={<ChevronLeftIcon stroke={color} />}
         containerStyle={styles.br100}
         buttonStyle={styles.buttonStyle}
         onPress={goBack}
       />
-      <Text style={[styles.titleStyle, {color}]}>{title}</Text>
+      <Text style={[styles.titleStyle, { color }]}>{title}</Text>
       {isGradient && (
         <LinearGradient
           style={styles.gradientStyle}
-          colors={['#00000042', '#00000000']}
-          start={{x: 1, y: 0}}
-          end={{x: 1, y: 1}}
+          colors={["#00000042", "#00000000"]}
+          start={{ x: 1, y: 0 }}
+          end={{ x: 1, y: 1 }}
           locations={[0, 0.9]}
         />
       )}
@@ -73,29 +74,29 @@ const styles = StyleSheet.create({
     height: 40,
     marginLeft: 15,
     borderRadius: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "transparent",
   },
   titleStyle: {
     marginHorizontal: 5,
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   gradientStyle: {
     zIndex: -99,
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
+    height: "100%",
+    width: "100%",
+    position: "absolute",
   },
   br100: {
     borderRadius: 100,
   },
   containerStyle: {
-    width: '100%',
+    width: "100%",
     minHeight: 80,
-    alignItems: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    flexDirection: "row",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },

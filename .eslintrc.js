@@ -1,24 +1,26 @@
 module.exports = {
   root: true,
-  extends: ['@react-native-community', 'plugin:prettier/recommended'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react-hooks', 'prettier'],
+  extends: [
+    "@react-native-community",
+    "plugin:prettier/recommended",
+    "prettier",
+  ],
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint", "react-hooks", "prettier"],
   overrides: [
     {
-      files: ['*.ts', '*.tsx'],
+      files: ["*.ts", "*.tsx"],
       rules: {
-        '@typescript-eslint/no-shadow': ['error'],
-        'no-shadow': 'off',
-        'no-undef': 'off',
-        eqeqeq: 'off',
-        'react-hooks/rules-of-hooks': 'error',
-        'react-hooks/exhaustive-deps': 'warn',
-        'prettier/prettier': [
-          'error',
+        "@typescript-eslint/no-shadow": ["error"],
+        "no-shadow": "off",
+        "no-undef": "off",
+        eqeqeq: "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "prettier/prettier": [
+          "error",
           {
-            endOfLine: 'auto',
-            'no-inline-styles': true,
-            'space-in-brackets': 'always',
+            endOfLine: "auto",
           },
         ],
       },

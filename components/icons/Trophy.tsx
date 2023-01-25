@@ -1,5 +1,5 @@
-import React from 'react';
-import Svg, {Circle, Line, Path, SvgProps} from 'react-native-svg';
+import React from "react";
+import Svg, { Circle, Line, Path, SvgProps } from "react-native-svg";
 
 const Trophy = (props: SvgProps) => {
   return (
@@ -12,7 +12,8 @@ const Trophy = (props: SvgProps) => {
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
-      {...props}>
+      {...props}
+    >
       <Path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <Line x1="8" y1="21" x2="16" y2="21" />
       <Line x1="12" y1="17" x2="12" y2="21" />
