@@ -1,19 +1,19 @@
 import {
-  ActivityIndicator,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
   View,
+  Text,
+  Pressable,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
 } from 'react-native';
+import {Button} from '@rneui/base';
 import React, {useState} from 'react';
 import FastImage from 'react-native-fast-image';
-import Building from '../../assets/Building';
-import CircleOff from '../../assets/CircleOff';
-import {Button} from '@rneui/base';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
 import {RootStackParamList} from '../../App';
 import CustomHeader from '../../components/CustomHeader';
+import {CircleOffIcon, MapPinIcon} from '../../components/icons';
 
 type SearchResultProps = NativeStackScreenProps<
   RootStackParamList,
@@ -90,100 +90,39 @@ const SearchResult = (props: SearchResultProps) => {
   console.log(route?.params?.username);
 
   return (
-    <View
-      style={{
-        alignItems: 'center',
-        width: '100%',
-        justifyContent: 'center',
-        flex: 1,
-      }}>
+    <View style={styles.containerStyle}>
       <CustomHeader title="Users" goBack={() => navigation.goBack()} />
-      {isLoading && (
-        <ActivityIndicator color={'#01BABC'} style={{marginTop: 25}} />
-      )}
+      {isLoading && <ActivityIndicator color={'#01BABC'} style={styles.mt25} />}
       {users && users.length === 0 && (
-        <View
-          style={{
-            marginTop: 100,
-            alignItems: 'center',
-          }}>
-          <CircleOff />
-          <Text
-            style={{
-              marginTop: 5,
-              color: '#c0c0c0',
-              fontWeight: 'bold',
-              fontSize: 16,
-            }}>
-            No Match Found
-          </Text>
+        <View style={styles.noMatchContainerStyles}>
+          <CircleOffIcon />
+          <Text style={styles.noMatchTextStyle}>No Match Found</Text>
           <Button
             title={'Try again'}
-            buttonStyle={{
-              backgroundColor: '#3B3B3B',
-              paddingVertical: 10,
-            }}
-            containerStyle={{
-              minWidth: 120,
-              borderRadius: 10,
-              elevation: 4,
-              marginTop: 15,
-            }}
+            buttonStyle={styles.buttonStyle}
+            containerStyle={styles.buttonContainerStyle}
             onPress={() => navigation.goBack()}
           />
         </View>
       )}
-      <ScrollView style={{width: '90%'}} showsVerticalScrollIndicator={false}>
+      <ScrollView style={styles.w90} showsVerticalScrollIndicator={false}>
         {users?.map(user => {
           return (
             <Pressable
               onPress={() => {
                 navigation.navigate('UserProfile', {id: user.id});
               }}
-              style={{
-                flexDirection: 'row',
-                backgroundColor: '#212121',
-                marginVertical: 10,
-                width: '100%',
-                padding: 10,
-                borderRadius: 10,
-                elevation: 4,
-              }}
+              style={styles.userCardContainer}
               key={user.id}>
               <FastImage
                 source={user.profilePicture}
-                style={{
-                  width: 73,
-                  height: 73,
-                  borderRadius: 50,
-                  borderWidth: 3,
-                  borderColor: '#01BABC',
-                }}
+                style={styles.avatarStyle}
               />
-              <View
-                style={{
-                  marginHorizontal: 10,
-                  paddingVertical: 5,
-                }}>
-                <Text
-                  style={{
-                    color: '#f6f6f6',
-                    fontSize: 16,
-                    fontWeight: '600',
-                    marginBottom: 2,
-                  }}>
-                  {user.username}
-                </Text>
-                <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-                  <Building />
-                  <Text
-                    style={{
-                      color: '#f6f6f6',
-                      fontSize: 14,
-                      marginHorizontal: 3,
-                    }}>
-                    {user.campus}
-                  </Text>
+              <View style={[styles.mh10, styles.pv5]}>
+                <Text style={styles.usernameStyle}>{user.username}</Text>
+                <View style={styles.campusCityContainer}>
+                  <MapPinIcon stroke={'#28c8e0'} />
+                  <Text style={styles.campusCityTextStyle}>{user.campus}</Text>
                 </View>
               </View>
             </Pressable>
@@ -196,4 +135,75 @@ const SearchResult = (props: SearchResultProps) => {
 
 export default SearchResult;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  containerStyle: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#3b3b3b',
+  },
+  mt25: {
+    marginTop: 25,
+  },
+  noMatchContainerStyles: {
+    marginTop: 100,
+    alignItems: 'center',
+  },
+  noMatchTextStyle: {
+    marginTop: 5,
+    fontSize: 16,
+    color: '#c0c0c0',
+    fontWeight: 'bold',
+  },
+  buttonStyle: {
+    paddingVertical: 10,
+    backgroundColor: '#3B3B3B',
+  },
+  buttonContainerStyle: {
+    elevation: 4,
+    marginTop: 15,
+    minWidth: 120,
+    borderRadius: 10,
+  },
+  w90: {
+    width: '90%',
+  },
+  userCardContainer: {
+    padding: 10,
+    elevation: 4,
+    width: '100%',
+    borderRadius: 10,
+    marginVertical: 10,
+    flexDirection: 'row',
+    backgroundColor: '#575757',
+  },
+  avatarStyle: {
+    width: 73,
+    height: 73,
+    borderWidth: 3,
+    borderRadius: 50,
+    borderColor: '#01BABC',
+  },
+  mh10: {
+    marginHorizontal: 10,
+  },
+  pv5: {
+    paddingVertical: 5,
+  },
+  usernameStyle: {
+    fontSize: 16,
+    marginBottom: 2,
+    fontWeight: '600',
+    color: '#f6f6f6',
+  },
+  campusCityContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  campusCityTextStyle: {
+    color: '#f6f6f6',
+    fontSize: 14,
+    marginHorizontal: 3,
+  },
+});

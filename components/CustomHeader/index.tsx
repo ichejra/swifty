@@ -7,10 +7,11 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Button} from '@rneui/base';
-import ChevronLeft from '../../assets/ChevronLeft';
 import LinearGradient from 'react-native-linear-gradient';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
+import {ChevronLeftIcon} from '../icons';
 
 interface ICustomHeaderProps {
   title: string;
@@ -26,7 +27,7 @@ const CustomHeader = (props: ICustomHeaderProps) => {
   const {
     title,
     goBack,
-    bgColor = '#212121',
+    bgColor = '#2f2f2f',
     containerStyle,
     color = '#01dade',
     isGradient = false,
@@ -35,55 +36,25 @@ const CustomHeader = (props: ICustomHeaderProps) => {
   const iosStatusBarSpacing = {
     paddingTop: Platform.OS === 'ios' ? insets.top : 0,
   };
+
   return (
     <View
       style={[
-        {
-          width: '100%',
-          flexDirection: 'row',
-          backgroundColor: bgColor,
-          minHeight: 80,
-          alignItems: 'center',
-          // paddingHorizontal: 15,
-          borderBottomLeftRadius: 20,
-          borderBottomRightRadius: 20,
-        },
-        iosStatusBarSpacing,
         containerStyle,
+        iosStatusBarSpacing,
+        styles.containerStyle,
+        {backgroundColor: bgColor},
       ]}>
       <Button
-        icon={<ChevronLeft stroke={color} />}
-        containerStyle={{borderRadius: 100}}
-        buttonStyle={{
-          width: 40,
-          height: 40,
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'transparent',
-          borderRadius: 100,
-          marginLeft: 15,
-        }}
+        icon={<ChevronLeftIcon stroke={color} />}
+        containerStyle={styles.br100}
+        buttonStyle={styles.buttonStyle}
         onPress={goBack}
       />
-      <Text
-        style={{
-          marginHorizontal: 5,
-          color: color,
-          fontSize: 18,
-          fontWeight: 'bold',
-        }}>
-        {title}
-      </Text>
+      <Text style={[styles.titleStyle, {color}]}>{title}</Text>
       {isGradient && (
         <LinearGradient
-          style={[
-            {
-              zIndex: -99,
-              height: '100%',
-              width: '100%',
-              position: 'absolute',
-            },
-          ]}
+          style={styles.gradientStyle}
           colors={['#00000042', '#00000000']}
           start={{x: 1, y: 0}}
           end={{x: 1, y: 1}}
@@ -96,4 +67,36 @@ const CustomHeader = (props: ICustomHeaderProps) => {
 
 export default CustomHeader;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  buttonStyle: {
+    width: 40,
+    height: 40,
+    marginLeft: 15,
+    borderRadius: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  titleStyle: {
+    marginHorizontal: 5,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  gradientStyle: {
+    zIndex: -99,
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+  },
+  br100: {
+    borderRadius: 100,
+  },
+  containerStyle: {
+    width: '100%',
+    minHeight: 80,
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+});
