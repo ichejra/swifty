@@ -54,14 +54,14 @@ const UserInfo = () => {
           </View>
         </View>
         <View style={styles.justifyCenter}>
-          <View style={[styles.row, styles.spaceBetween]}>
+          <View style={[styles.row, styles.spaceBetween, styles.alignEnd]}>
             <View style={[styles.row, styles.alignEnd]}>
               <WalletIcon />
               <Text style={styles.keyStyle}>Wallet</Text>
             </View>
             <Text style={styles.valueStyle}>20</Text>
           </View>
-          <View style={[styles.row, styles.spaceBetween]}>
+          <View style={[styles.row, styles.spaceBetween, styles.alignEnd]}>
             <View style={[styles.row, styles.alignEnd]}>
               <Trophy />
               <Text style={styles.keyStyle}>Correction</Text>

@@ -27,7 +27,7 @@ const CustomHeader = (props: ICustomHeaderProps) => {
   const {
     title,
     goBack,
-    bgColor = "#2f2f2f",
+    bgColor = "#2f2f2f00",
     containerStyle,
     color = "#01dade",
     isGradient = false,
@@ -97,7 +97,5 @@ const styles = StyleSheet.create({
     minHeight: 80,
     alignItems: "center",
     flexDirection: "row",
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
   },
 });
