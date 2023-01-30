@@ -4,9 +4,9 @@ import FastImage from "react-native-fast-image";
 import { StyleSheet, TextInput, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { RootStackParamList } from "../../App";
+import { MainStackParamList } from "../../App";
 
-type SearchProps = NativeStackScreenProps<RootStackParamList, "Search">;
+type SearchProps = NativeStackScreenProps<MainStackParamList, "Search">;
 
 const logoImageSource = require("../../assets/42.png");
 
@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     width: "80%",
     fontSize: 14,
     elevation: 4,
-    borderRadius: 10,
+    borderColor: "#01BABC",
+    borderWidth: 2,
     marginBottom: 20,
     color: "#01BABC",
     paddingHorizontal: 10,
@@ -68,6 +69,5 @@ const styles = StyleSheet.create({
   buttonContainerStyle: {
     elevation: 4,
     minWidth: 170,
-    borderRadius: 10,
   },
 });

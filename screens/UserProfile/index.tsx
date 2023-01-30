@@ -3,14 +3,14 @@ import FastImage from "react-native-fast-image";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ScrollView, StyleSheet, View } from "react-native";
 
-import { RootStackParamList } from "../../App";
+import { MainStackParamList } from "../../App";
 import CustomHeader from "../../components/CustomHeader";
 import UserInfo from "../../components/UserInfo";
 import Skills from "../../components/UserSkills";
 import UserProjects from "../../components/UserProjects";
 
 type UserProfileProps = NativeStackScreenProps<
-  RootStackParamList,
+  MainStackParamList,
   "UserProfile"
 >;
 

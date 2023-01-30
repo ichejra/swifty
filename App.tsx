@@ -8,26 +8,77 @@
  * @format
  */
 
-import React from "react";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
-
-import Search from "./screens/Search";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SearchResult from "./screens/SearchResult";
-import Login from "./screens/Login";
-import UserProfile from "./screens/UserProfile";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
-export type RootStackParamList = {
-  Login: undefined;
+import Login from "./screens/Login";
+import Search from "./screens/Search";
+import { loginFromLocalStorage } from "./utils";
+import UserProfile from "./screens/UserProfile";
+import SearchResult from "./screens/SearchResult";
+import SplashScreen from "./screens/SplashScreen";
+
+export type MainStackParamList = {
   Search: undefined;
   SearchResult: { username: string };
   UserProfile: { id: string };
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+export type AuthStackParamList = {
+  Login: undefined;
+};
+
+const mainStack = createNativeStackNavigator<MainStackParamList>();
+const authStack = createNativeStackNavigator<AuthStackParamList>();
+
+const getMainStack = () => {
+  return (
+    <mainStack.Navigator
+      initialRouteName="Search"
+      screenOptions={{ headerShown: false }}
+    >
+      <mainStack.Screen name="Search" component={Search} />
+      <mainStack.Screen name="SearchResult" component={SearchResult} />
+      <mainStack.Screen name="UserProfile" component={UserProfile} />
+    </mainStack.Navigator>
+  );
+};
+
+const getAuthStack = () => {
+  return (
+    <authStack.Navigator
+      initialRouteName="Login"
+      screenOptions={{ headerShown: false }}
+    >
+      <authStack.Screen name="Login" component={Login} />
+    </authStack.Navigator>
+  );
+};
 
 const App = () => {
+  const [isSplashLoading, setIsSplashLoading] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsSplashLoading(false);
+    }, 2300);
+  }, []);
+
+  useEffect(() => {
+    loginFromLocalStorage()
+      .then(data => {
+        //! log
+        console.log("data=>", data);
+        if (data) setIsAuth(data.isAuth);
+      })
+      .catch(e => console.log("Cannot login from local storage", e));
+  }, []);
+
+  if (isSplashLoading) return <SplashScreen />;
+
   return (
     <NavigationContainer
       theme={{
@@ -39,15 +90,7 @@ const App = () => {
       }}
     >
       <SafeAreaView style={styles.flex1}>
-        <Stack.Navigator
-          initialRouteName="Search"
-          screenOptions={{ headerShown: false }}
-        >
-          <Stack.Screen name="Search" component={Search} />
-          <Stack.Screen name="SearchResult" component={SearchResult} />
-          <Stack.Screen name="UserProfile" component={UserProfile} />
-          <Stack.Screen name="Login" component={Login} />
-        </Stack.Navigator>
+        {isAuth ? getMainStack() : getAuthStack()}
       </SafeAreaView>
     </NavigationContainer>
   );

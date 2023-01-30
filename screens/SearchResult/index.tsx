@@ -11,12 +11,12 @@ import React, { useState } from "react";
 import FastImage from "react-native-fast-image";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { RootStackParamList } from "../../App";
+import { MainStackParamList } from "../../App";
 import CustomHeader from "../../components/CustomHeader";
 import { CircleOffIcon, MapPinIcon } from "../../components/icons";
 
 type SearchResultProps = NativeStackScreenProps<
-  RootStackParamList,
+  MainStackParamList,
   "SearchResult"
 >;
 
@@ -174,7 +174,6 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 4,
     width: "100%",
-    borderRadius: 10,
     marginVertical: 10,
     flexDirection: "row",
     backgroundColor: "#575757",
