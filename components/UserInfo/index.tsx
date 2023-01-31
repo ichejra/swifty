@@ -12,45 +12,86 @@ import {
 import Trophy from "../../components/icons/Trophy";
 import { COLORS } from "../../base.style";
 
-const UserInfo = () => {
+interface IUserInfoProps {
+  personalInfo: {
+    displayName: string;
+    login: string;
+    email: string;
+    phone: string;
+    wallet: number;
+    location: string;
+    correctionPoint: number;
+    campus: string;
+    avatar: {
+      uri: string;
+    };
+    level: number;
+    intraLink: string;
+  };
+}
+
+const UserInfo = (props: IUserInfoProps) => {
+  const {
+    personalInfo: {
+      login,
+      level,
+      email,
+      phone,
+      wallet,
+      avatar,
+      campus,
+      location,
+      intraLink,
+      displayName,
+      correctionPoint,
+    },
+  } = props;
+
+  const splitLevel = () => {
+    const levelFormat = level.toString().split(".");
+    const number = levelFormat[0];
+    const decimal = levelFormat[1] ? Number("0." + levelFormat[1]) : 0;
+    const percent = Math.trunc(decimal * 100);
+
+    return { level: `${number} - ${percent}%`, decimal };
+  };
+
+  const openMail = () => {
+    Linking.openURL(`mailto:${email}?subject=SendMail&body=Description`);
+  };
+
   return (
     <View style={styles.containerStyle}>
       <FastImage
-        source={{ uri: "https://zupimages.net/up/22/34/868j.jpg" }}
+        source={avatar}
         style={styles.imageStyle}
         resizeMode={"cover"}
       />
-      <Text style={styles.nameStyle}>Imane Chejra</Text>
-      <Text style={styles.loginStyle}>ichejra</Text>
+      <Text style={styles.nameStyle}>{displayName}</Text>
+      <Text style={styles.loginStyle}>{login}</Text>
       <View style={styles.infoContainer}>
         <View style={styles.flex2}>
           <View style={styles.fieldContainer}>
             <MapPinIcon />
-            <Text style={styles.campusCityStyle}>Khouribga</Text>
+            <Text style={styles.campusCityStyle}>{campus}</Text>
           </View>
-          <View style={styles.fieldContainer}>
-            <PhoneIcon />
-            <Text
-              style={styles.pressableStyle}
-              onPress={() => {
-                Linking.openURL(`tel: +212 650253698`);
-              }}
-            >
-              +212 650253698
-            </Text>
-          </View>
+          {phone !== "hidden" && (
+            <View style={styles.fieldContainer}>
+              <PhoneIcon />
+              <Text
+                style={styles.pressableStyle}
+                onPress={() => {
+                  Linking.openURL(`tel: ${phone}`);
+                }}
+              >
+                {phone}
+              </Text>
+            </View>
+          )}
           <View style={styles.fieldContainer}>
             <AtIcon />
-            <Text
-              onPress={() => {
-                //!Test This
-                Linking.openURL(
-                  `mailto:hello@hello.com?subject=SendMail&body=Description`,
-                );
-              }}
-              style={styles.pressableStyle}
-            >
-              hello@hello.com
+            <Text onPress={openMail} style={styles.pressableStyle}>
+              {email}
             </Text>
           </View>
         </View>
@@ -60,21 +101,21 @@ const UserInfo = () => {
               <WalletIcon />
               <Text style={styles.keyStyle}>Wallet</Text>
             </View>
-            <Text style={styles.valueStyle}>20</Text>
+            <Text style={styles.valueStyle}>{wallet}</Text>
           </View>
           <View style={[styles.row, styles.spaceBetween, styles.alignEnd]}>
             <View style={[styles.row, styles.alignEnd]}>
               <Trophy />
               <Text style={styles.keyStyle}>Correction</Text>
             </View>
-            <Text style={styles.valueStyle}>7</Text>
+            <Text style={styles.valueStyle}>{correctionPoint}</Text>
           </View>
         </View>
       </View>
       <View style={styles.levelContainer}>
-        <Text style={styles.valueStyle}>14 - 82%</Text>
+        <Text style={styles.valueStyle}>{splitLevel().level}</Text>
         <Progress.Bar
-          progress={0.82}
+          progress={splitLevel().decimal}
           width={250}
           borderRadius={2}
           animated

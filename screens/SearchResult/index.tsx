@@ -19,77 +19,16 @@ import {
   PersonIcon,
 } from "../../components/icons";
 import { COLORS } from "../../base.style";
-import { api } from "../../api";
+import { api, generateToken } from "../../api";
+import { getSessionData } from "../../utils/localStorage";
+import { isTokenExpired } from "../../utils";
 
 type SearchResultProps = NativeStackScreenProps<
   MainStackParamList,
   "SearchResult"
 >;
 
-// const users = [
-//   {
-//     id: "0",
-//     login: "ichejra",
-//     displayName: "Imane Chejra",
-//     avatar: { uri: "https://zupimages.net/up/22/34/868j.jpg" },
-//   },
-//   {
-//     id: "1",
-//     login: "ichejra",
-//     displayName: "Imane Chejra",
-//     avatar: { uri: "https://zupimages.net/up/22/34/868j.jpg" },
-//   },
-//   {
-//     id: "2",
-//     login: "ichejra",
-//     displayName: "Imane Chejra",
-//     avatar: { uri: "https://zupimages.net/up/22/34/868j.jpg" },
-//   },
-//   {
-//     id: "3",
-//     login: "ichejra",
-//     displayName: "Imane Chejra",
-//     avatar: { uri: "https://zupimages.net/up/22/34/868j.jpg" },
-//   },
-//   {
-//     id: "4",
-//     login: "ichejra",
-//     displayName: "Imane Chejra",
-//     avatar: { uri: "https://zupimages.net/up/22/34/868j.jpg" },
-//   },
-//   {
-//     id: "5",
-//     login: "ichejra",
-//     displayName: "Imane Chejra",
-//     avatar: { uri: "https://zupimages.net/up/22/34/868j.jpg" },
-//   },
-//   {
-//     id: "6",
-//     login: "ichejra",
-//     displayName: "Imane Chejra",
-//     avatar: { uri: "https://zupimages.net/up/22/34/868j.jpg" },
-//   },
-//   {
-//     id: "7",
-//     login: "ichejra",
-//     displayName: "Imane Chejra",
-//     avatar: { uri: "https://zupimages.net/up/22/34/868j.jpg" },
-//   },
-//   {
-//     id: "8",
-//     login: "ichejra",
-//     displayName: "Imane Chejra",
-//     avatar: { uri: "https://zupimages.net/up/22/34/868j.jpg" },
-//   },
-//   {
-//     id: "9",
-//     login: "ichejra",
-//     displayName: "Imane Chejra",
-//     avatar: { uri: "https://zupimages.net/up/22/34/868j.jpg" },
-//   },
-// ];
-
-type helloType = {
+type userType = {
   id: string;
   displayName: string;
   login: string;
@@ -102,32 +41,37 @@ const SearchResult = (props: SearchResultProps) => {
   const { navigation, route } = props;
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const [hello, setHello] = useState<helloType[]>([]);
-
-  console.log(route?.params?.login);
+  const [users, setUsers] = useState<userType[]>([]);
 
   const getUsers = async () => {
-    api()
-      .get(`/v2/users?filter[login]=${route?.params?.login}`)
-      .then(response => {
-        let data = response.data.map((user: any) => {
-          return {
-            id: user.id,
-            login: user.login,
-            displayName: user.displayname,
-            avatar: { uri: user.image.link },
-          };
-        });
+    const sessionData = await getSessionData();
 
-        setHello(data);
-        setIsLoading(false);
-      })
-      .catch(err => {
-        console.log("here");
-        console.log(err);
-        setIsError(true);
-        setIsLoading(false);
-      });
+    if (sessionData) {
+      if (isTokenExpired(sessionData?.accessTokenExpirationDate)) {
+        await generateToken();
+        console.log("ReGENERATED");
+      }
+      api(sessionData.accessToken)
+        .get(`/v2/users?filter[login]=${route?.params?.login}`)
+        .then(response => {
+          let data = response.data.map((user: any) => {
+            return {
+              id: user.id,
+              login: user.login,
+              displayName: user.displayname,
+              avatar: { uri: user.image.link },
+            };
+          });
+
+          setUsers(data);
+          setIsLoading(false);
+        })
+        .catch(err => {
+          console.log(err);
+          setIsError(true);
+          setIsLoading(false);
+        });
+    }
   };
 
   useEffect(() => {
@@ -146,7 +90,7 @@ const SearchResult = (props: SearchResultProps) => {
           <Text style={styles.errorText}>Oooops! An error has occured! ☹️</Text>
         </View>
       )}
-      {hello && hello.length === 0 && !isLoading && !isError && (
+      {users && users.length === 0 && !isLoading && !isError && (
         <View style={styles.noMatchContainerStyles}>
           <CircleOffIcon />
           <Text style={styles.noMatchTextStyle}>No Match Found</Text>
@@ -160,11 +104,11 @@ const SearchResult = (props: SearchResultProps) => {
         </View>
       )}
       <ScrollView style={styles.w90} showsVerticalScrollIndicator={false}>
-        {hello?.map(user => {
+        {users?.map(user => {
           return (
             <Pressable
               onPress={() => {
-                navigation.navigate("UserProfile", { id: user.id });
+                navigation.navigate("UserProfile", { userId: user.id });
               }}
               style={styles.userCardContainer}
               key={user.id}

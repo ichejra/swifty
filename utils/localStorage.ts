@@ -13,6 +13,12 @@ export const destroySessionData = async () => {
   }
 };
 
+export interface ISessionDataBody {
+  accessTokenExpirationDate: string | number | Date;
+  accessToken: string;
+  refreshToken: string;
+}
+
 export const getSessionData = async () => {
   try {
     const sessionData = await AsyncStorage.getItem("sessionData");
@@ -21,10 +27,9 @@ export const getSessionData = async () => {
       return undefined;
     }
 
-    //! Add data type
-    const data = JSON.parse(sessionData);
+    const data = JSON.parse(sessionData) as ISessionDataBody;
 
-    if (!isTokenExpired(data.access_token)) {
+    if (!isTokenExpired(data.accessTokenExpirationDate)) {
       return data;
     }
 

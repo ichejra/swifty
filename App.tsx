@@ -24,7 +24,7 @@ import { destroySessionData } from "./utils/localStorage";
 export type MainStackParamList = {
   Search: undefined;
   SearchResult: { login: string };
-  UserProfile: { id: string };
+  UserProfile: { userId: string };
 };
 
 export type AuthStackParamList = {
@@ -72,8 +72,6 @@ const App = () => {
   useEffect(() => {
     loginFromLocalStorage()
       .then(data => {
-        //! log
-        console.log("data=>", data);
         if (data) setIsAuth(data.isAuth);
       })
       .catch(e => console.log("Cannot login from local storage", e));

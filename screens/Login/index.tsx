@@ -2,20 +2,16 @@ import React from "react";
 import { Button } from "@rneui/base";
 import FastImage from "react-native-fast-image";
 import { StyleSheet, Text, View } from "react-native";
-import { saveSession } from "../../utils/localStorage";
-import { authorize } from "react-native-app-auth";
 import RNRestart from "react-native-restart";
-import { authConfig } from "../../utils";
 import { COLORS } from "../../base.style";
+import { generateToken } from "../../api";
 
 const blackLogoImageSource = require("../../assets/42_black.png");
 
 const Login = () => {
   const signInWith42 = async () => {
     try {
-      const result = await authorize(authConfig);
-      console.log(result); //! log
-      saveSession(result);
+      await generateToken();
       RNRestart.Restart();
     } catch (error) {
       console.log(error);

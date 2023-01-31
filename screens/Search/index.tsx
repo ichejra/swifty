@@ -17,7 +17,7 @@ const Search = (props: SearchProps) => {
   const [isInvalid, setIsInvalid] = useState(false);
 
   const onSearch = () => {
-    if (!login || !login.trim() || login.length > 30) setIsInvalid(true);
+    if (!login || !login.trim()) setIsInvalid(true);
     else {
       setIsInvalid(false);
       navigation.navigate("SearchResult", {
@@ -25,6 +25,7 @@ const Search = (props: SearchProps) => {
       });
     }
   };
+
   return (
     <View style={styles.containerStyle}>
       <FastImage
@@ -86,11 +87,11 @@ const styles = StyleSheet.create({
     color: COLORS.dangerRed,
   },
   buttonStyle: {
-    marginTop: 20,
     paddingVertical: 10,
     backgroundColor: COLORS.darkGray,
   },
   buttonContainerStyle: {
+    marginTop: 20,
     elevation: 4,
     minWidth: 170,
   },

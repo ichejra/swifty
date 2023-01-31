@@ -5,8 +5,6 @@ export const loginFromLocalStorage = async () => {
   let sessionData = await getSessionData();
   let isAuth = false;
 
-  console.log("tokens", sessionData); //! log
-
   if (sessionData) {
     isAuth = true;
   }
@@ -25,7 +23,6 @@ export const config = {
   },
 };
 
-export const isTokenExpired = (expirationDate: string) => {
-  //! To be tested
+export const isTokenExpired = (expirationDate: string | number | Date) => {
   return Date.now() >= new Date(expirationDate).getTime();
 };
