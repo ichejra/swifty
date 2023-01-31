@@ -12,6 +12,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ChevronLeftIcon } from "../icons";
+import { COLORS } from "../../base.style";
 
 interface ICustomHeaderProps {
   title: string;
@@ -27,9 +28,9 @@ const CustomHeader = (props: ICustomHeaderProps) => {
   const {
     title,
     goBack,
-    bgColor = "#2f2f2f00",
+    bgColor = COLORS.transparent,
     containerStyle,
-    color = "#01dade",
+    color = COLORS.aquaNeon,
     isGradient = false,
   } = props;
   const insets = useSafeAreaInsets();

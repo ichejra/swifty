@@ -8,6 +8,7 @@ import CustomHeader from "../../components/CustomHeader";
 import UserInfo from "../../components/UserInfo";
 import Skills from "../../components/UserSkills";
 import UserProjects from "../../components/UserProjects";
+import { COLORS } from "../../base.style";
 
 type UserProfileProps = NativeStackScreenProps<
   MainStackParamList,
@@ -24,9 +25,9 @@ const UserProfile = (props: UserProfileProps) => {
       <CustomHeader
         title={"User"}
         goBack={() => navigation.goBack()}
-        bgColor="transparent"
+        bgColor={COLORS.transparent}
         containerStyle={styles.headerContainerStyle}
-        color={"#ffffff"}
+        color={COLORS.white}
         isGradient
       />
       <ScrollView>
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   whiteSmokeBg: {
-    backgroundColor: "#f6f6f6",
+    backgroundColor: COLORS.whiteSmoke,
   },
   headerContainerStyle: {
     position: "absolute",

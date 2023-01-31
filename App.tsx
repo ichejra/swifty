@@ -19,10 +19,11 @@ import { loginFromLocalStorage } from "./utils";
 import UserProfile from "./screens/UserProfile";
 import SearchResult from "./screens/SearchResult";
 import SplashScreen from "./screens/SplashScreen";
+import { destroySessionData } from "./utils/localStorage";
 
 export type MainStackParamList = {
   Search: undefined;
-  SearchResult: { username: string };
+  SearchResult: { login: string };
   UserProfile: { id: string };
 };
 
@@ -61,6 +62,7 @@ const App = () => {
   const [isSplashLoading, setIsSplashLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 
+  // destroySessionData();
   useEffect(() => {
     setTimeout(() => {
       setIsSplashLoading(false);

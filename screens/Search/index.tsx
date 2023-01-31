@@ -1,10 +1,11 @@
 import { Button } from "@rneui/base";
 import React, { useState } from "react";
 import FastImage from "react-native-fast-image";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View, Text } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { MainStackParamList } from "../../App";
+import { COLORS } from "../../base.style";
 
 type SearchProps = NativeStackScreenProps<MainStackParamList, "Search">;
 
@@ -12,8 +13,18 @@ const logoImageSource = require("../../assets/42.png");
 
 const Search = (props: SearchProps) => {
   const { navigation } = props;
-  const [username, setUsername] = useState("");
+  const [login, setLogin] = useState("");
+  const [isInvalid, setIsInvalid] = useState(false);
 
+  const onSearch = () => {
+    if (!login || !login.trim() || login.length > 30) setIsInvalid(true);
+    else {
+      setIsInvalid(false);
+      navigation.navigate("SearchResult", {
+        login: login.toLowerCase(),
+      });
+    }
+  };
   return (
     <View style={styles.containerStyle}>
       <FastImage
@@ -22,16 +33,20 @@ const Search = (props: SearchProps) => {
         resizeMode={"cover"}
       />
       <TextInput
-        value={username}
+        keyboardType="default"
+        value={login}
         placeholder="Search..."
-        style={styles.inputStyle}
-        onChangeText={value => setUsername(value)}
+        style={[styles.inputStyle, isInvalid && styles.dangerStyle]}
+        onChangeText={value => setLogin(value)}
       />
+      {isInvalid && (
+        <Text style={styles.dangerText}>Please enter a valid login</Text>
+      )}
       <Button
         title="Search"
         buttonStyle={styles.buttonStyle}
         containerStyle={styles.buttonContainerStyle}
-        onPress={() => navigation.navigate("SearchResult", { username })}
+        onPress={onSearch}
       />
     </View>
   );
@@ -44,7 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#212121",
+    backgroundColor: COLORS.lightBlack,
   },
   imageStyle: {
     height: 100,
@@ -55,16 +70,25 @@ const styles = StyleSheet.create({
     width: "80%",
     fontSize: 14,
     elevation: 4,
-    borderColor: "#01BABC",
+    borderColor: COLORS.aqua,
     borderWidth: 2,
-    marginBottom: 20,
-    color: "#01BABC",
+    marginBottom: 5,
+    color: COLORS.aqua,
     paddingHorizontal: 10,
-    backgroundColor: "#f6f6f6",
+    backgroundColor: COLORS.whiteSmoke,
+  },
+  dangerStyle: {
+    borderColor: COLORS.dangerRed,
+  },
+  dangerText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: COLORS.dangerRed,
   },
   buttonStyle: {
+    marginTop: 20,
     paddingVertical: 10,
-    backgroundColor: "#3B3B3B",
+    backgroundColor: COLORS.darkGray,
   },
   buttonContainerStyle: {
     elevation: 4,

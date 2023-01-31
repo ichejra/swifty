@@ -6,6 +6,7 @@ import { saveSession } from "../../utils/localStorage";
 import { authorize } from "react-native-app-auth";
 import RNRestart from "react-native-restart";
 import { authConfig } from "../../utils";
+import { COLORS } from "../../base.style";
 
 const blackLogoImageSource = require("../../assets/42_black.png");
 
@@ -49,7 +50,7 @@ export default Login;
 const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
-    backgroundColor: "#f6f6f6",
+    backgroundColor: COLORS.whiteSmoke,
   },
   contentContainer: {
     flex: 1,
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 20,
-    color: "#212121",
+    color: COLORS.lightBlack,
     fontWeight: "bold",
   },
   imageStyle: {
@@ -76,18 +77,18 @@ const styles = StyleSheet.create({
   buttonStyle: {
     minHeight: 50,
     paddingVertical: 10,
-    backgroundColor: "#02dde0",
+    backgroundColor: COLORS.aquaNeon,
   },
   buttonContainerStyle: {
     elevation: 4,
     minWidth: 180,
     marginBottom: 200,
-    backgroundColor: "#02dde0",
+    backgroundColor: COLORS.aquaNeon,
   },
   buttonTitle: {
     fontSize: 16,
     letterSpacing: 1,
     fontWeight: "700",
-    color: "#212121",
+    color: COLORS.lightBlack,
   },
 });

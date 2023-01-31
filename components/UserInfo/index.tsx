@@ -10,6 +10,7 @@ import {
   WalletIcon,
 } from "../../components/icons";
 import Trophy from "../../components/icons/Trophy";
+import { COLORS } from "../../base.style";
 
 const UserInfo = () => {
   return (
@@ -77,7 +78,7 @@ const UserInfo = () => {
           width={250}
           borderRadius={2}
           animated
-          color="#01BABC"
+          color={COLORS.aqua}
           style={styles.mt5}
         />
       </View>
@@ -101,13 +102,13 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   nameStyle: {
-    color: "#f6f6f6",
+    color: COLORS.whiteSmoke,
     letterSpacing: 1,
     fontSize: 15,
     fontWeight: "bold",
   },
   loginStyle: {
-    color: "#f6f6f6",
+    color: COLORS.whiteSmoke,
     letterSpacing: 1,
     fontSize: 15,
     marginBottom: 5,
@@ -130,11 +131,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   valueStyle: {
-    color: "#f6f6f6",
+    color: COLORS.whiteSmoke,
     fontWeight: "bold",
   },
   keyStyle: {
-    color: "#f6f6f6",
+    color: COLORS.whiteSmoke,
     marginHorizontal: 5,
   },
   levelContainer: {
@@ -143,15 +144,15 @@ const styles = StyleSheet.create({
   },
   campusCityStyle: {
     fontWeight: "bold",
-    color: "#f6f6f6",
+    color: COLORS.whiteSmoke,
     marginHorizontal: 5,
   },
   pressableStyle: {
     fontWeight: "bold",
-    color: "#01BABC",
+    color: COLORS.aqua,
     marginHorizontal: 5,
     borderBottomWidth: 1,
-    borderBottomColor: "#01BABC",
+    borderBottomColor: COLORS.aqua,
   },
   flex1: {
     flex: 1,

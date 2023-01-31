@@ -1,6 +1,7 @@
 import React from "react";
 import FastImage from "react-native-fast-image";
 import { View, StyleSheet, Text } from "react-native";
+import { COLORS } from "../../base.style";
 
 const logo42Image = require("../../assets/42.png");
 const logo1337Image = require("../../assets/1337.png");
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-end",
-    backgroundColor: "#212121",
+    backgroundColor: COLORS.lightBlack,
   },
   contentContainer: {
     width: "100%",
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   textStyle: {
     marginBottom: 10,
     fontWeight: "bold",
-    color: "#01babc",
+    color: COLORS.aqua,
     textAlign: "center",
   },
 });

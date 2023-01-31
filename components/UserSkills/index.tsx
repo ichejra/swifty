@@ -1,6 +1,7 @@
 import React from "react";
 import * as Progress from "react-native-progress";
 import { StyleSheet, Text, View } from "react-native";
+import { COLORS } from "../../base.style";
 
 const skills = [
   {
@@ -39,8 +40,8 @@ const Skills = () => {
                 </Text>
                 <Progress.Bar
                   progress={skill.level - Math.floor(skill.level)}
-                  unfilledColor={"#d2d1d1"}
-                  color="#01BABC"
+                  unfilledColor={COLORS.lightGray}
+                  color={COLORS.aqua}
                   borderRadius={0}
                   borderWidth={0}
                   width={290}
@@ -70,19 +71,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleStyle: {
-    color: "#212121",
+    color: COLORS.lightBlack,
     fontWeight: "bold",
     fontSize: 16,
     marginBottom: 5,
     letterSpacing: 1,
   },
   skillTitle: {
-    color: "#212121",
+    color: COLORS.lightBlack,
     fontWeight: "bold",
     marginBottom: 5,
   },
   paperStyle: {
-    backgroundColor: "#ffffff",
+    backgroundColor: COLORS.white,
     padding: 15,
     borderRadius: 15,
     elevation: 4,
