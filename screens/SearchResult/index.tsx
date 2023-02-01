@@ -1,27 +1,27 @@
 import {
   View,
   Text,
+  FlatList,
   Pressable,
   StyleSheet,
-  ScrollView,
   ActivityIndicator,
 } from "react-native";
 import { Button } from "@rneui/base";
-import React, { useEffect, useState } from "react";
 import FastImage from "react-native-fast-image";
+import React, { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { MainStackParamList } from "../../App";
-import CustomHeader from "../../components/CustomHeader";
 import {
   CircleOffIcon,
   ExclamationMarkIcon,
   PersonIcon,
 } from "../../components/icons";
 import { COLORS } from "../../base.style";
-import { api, generateToken } from "../../api";
-import { getSessionData } from "../../utils/localStorage";
 import { isTokenExpired } from "../../utils";
+import { MainStackParamList } from "../../App";
+import { api, generateToken } from "../../api";
+import CustomHeader from "../../components/CustomHeader";
+import { getSessionData } from "../../utils/localStorage";
 
 type SearchResultProps = NativeStackScreenProps<
   MainStackParamList,
@@ -49,7 +49,6 @@ const SearchResult = (props: SearchResultProps) => {
     if (sessionData) {
       if (isTokenExpired(sessionData?.accessTokenExpirationDate)) {
         await generateToken();
-        console.log("ReGENERATED");
       }
       api(sessionData.accessToken)
         .get(`/v2/users?filter[login]=${route?.params?.login}`)
@@ -62,7 +61,6 @@ const SearchResult = (props: SearchResultProps) => {
               avatar: { uri: user.image.link },
             };
           });
-
           setUsers(data);
           setIsLoading(false);
         })
@@ -103,28 +101,30 @@ const SearchResult = (props: SearchResultProps) => {
           />
         </View>
       )}
-      <ScrollView style={styles.w90} showsVerticalScrollIndicator={false}>
-        {users?.map(user => {
+      <FlatList
+        data={users}
+        style={styles.w90}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => {
           return (
             <Pressable
               onPress={() => {
-                navigation.navigate("UserProfile", { userId: user.id });
+                navigation.navigate("UserProfile", { userId: item.id });
               }}
               style={styles.userCardContainer}
-              key={user.id}
             >
-              <FastImage source={user.avatar} style={styles.avatarStyle} />
+              <FastImage source={item.avatar} style={styles.avatarStyle} />
               <View style={[styles.mh10, styles.pv5]}>
-                <Text style={styles.displayNameStyle}>{user.displayName}</Text>
+                <Text style={styles.displayNameStyle}>{item.displayName}</Text>
                 <View style={styles.loginContainer}>
                   <PersonIcon stroke={COLORS.skyBlue} />
-                  <Text style={styles.loginStyle}>{user.login}</Text>
+                  <Text style={styles.loginStyle}>{item.login}</Text>
                 </View>
               </View>
             </Pressable>
           );
-        })}
-      </ScrollView>
+        }}
+      />
     </View>
   );
 };
