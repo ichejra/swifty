@@ -74,7 +74,7 @@ const transformResponse = (user: any): userInfo => {
       },
     },
     skills: user.cursus_users[user.cursus_users.length - 1].skills,
-    projects: user?.project_users?.map((project: any) => {
+    projects: user.projects_users?.map((project: any) => {
       return {
         id: project.id,
         name: project.project.name,
@@ -142,11 +142,11 @@ const UserProfile = (props: UserProfileProps) => {
         isGradient
       />
 
-      <ScrollView>
+      <ScrollView nestedScrollEnabled={true}>
         {isLoading && (
           <ActivityIndicator color={COLORS.aqua} style={styles.mt100} />
         )}
-        {isError && (
+        {isError && ( //! add style
           <View style={{}}>
             <ExclamationMarkIcon />
             <Text style={{}}>Oooops! An error has occured! ☹️</Text>
@@ -160,8 +160,8 @@ const UserProfile = (props: UserProfileProps) => {
               resizeMode={"cover"}
             />
             <UserInfo personalInfo={userInfo.personalInfo} />
-            <Skills />
-            <UserProjects />
+            <Skills skills={userInfo.skills} />
+            <UserProjects projects={userInfo.projects} />
           </>
         )}
       </ScrollView>

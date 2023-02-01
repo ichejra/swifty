@@ -1,53 +1,45 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { COLORS } from "../../base.style";
 
-const projects = [
-  {
-    id: "0",
-    title: "Libft Libft Libft",
-    score: "100%",
-  },
-  {
-    id: "1",
-    title: "ft_services",
-    score: "105%",
-  },
-  {
-    id: "2",
-    title: "webserv",
-    score: "100%",
-  },
-  {
-    id: "3",
-    title: "ft_transcendence",
-    score: "20%",
-  },
-  {
-    id: "4",
-    title: "hypertube",
-    score: "80%",
-  },
-  {
-    id: "5",
-    title: "C++",
-    score: "120%",
-  },
-];
+interface IProjectsProps {
+  projects: {
+    id: string;
+    name: string;
+    validated: boolean;
+    status: string;
+    finalMark: number;
+  }[];
+}
 
-const UserProjects = () => {
+const UserProjects = (props: IProjectsProps) => {
+  const { projects } = props;
+
   return (
     <View style={styles.containerStyle}>
       <View style={styles.w90}>
         <Text style={styles.titleStyle}>Projects</Text>
         <View style={styles.paperStyle}>
-          {projects.map(project => {
-            return (
-              <View style={styles.rowStyle} key={project.id}>
-                <Text style={styles.projectTitle}>{project.title}</Text>
-                <Text style={styles.score}>{project.score}</Text>
-              </View>
-            );
-          })}
+          <ScrollView style={styles.scrollViewStyle} nestedScrollEnabled>
+            <View style={styles.contentContainer}>
+              {projects?.map(project => {
+                if (!project.finalMark) return;
+                return (
+                  <View style={styles.rowStyle} key={project.id}>
+                    <Text style={styles.projectTitle}>{project.name}</Text>
+                    <Text
+                      style={[
+                        styles.score,
+                        !project.validated && styles.failed,
+                      ]}
+                    >
+                      {project.finalMark}%
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+          </ScrollView>
         </View>
       </View>
     </View>
@@ -64,9 +56,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   containerStyle: {
+    width: "100%",
     marginTop: 10,
     marginBottom: 30,
-    width: "100%",
     alignItems: "center",
   },
   titleStyle: {
@@ -74,31 +66,45 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     letterSpacing: 1,
     fontWeight: "bold",
-    color: "#212121",
+    color: COLORS.lightBlack,
   },
   paperStyle: {
-    padding: 15,
     elevation: 4,
     borderRadius: 15,
-    backgroundColor: "#ffffff",
+    backgroundColor: COLORS.white,
   },
   rowStyle: {
+    width: "90%",
     marginBottom: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
   projectTitle: {
-    fontSize: 16,
-    color: "#313131",
-    fontWeight: "bold",
     width: "80%",
+    fontSize: 16,
+    fontWeight: "600",
+    fontStyle: "italic",
+    color: COLORS.nightGray,
   },
   score: {
     width: "20%",
     fontSize: 16,
-    color: "#01BABC",
     fontWeight: "bold",
     textAlign: "right",
+    color: COLORS.successGreen,
+  },
+  failed: {
+    color: COLORS.failureRed,
+  },
+  contentContainer: {
+    width: "100%",
+    paddingVertical: 15,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  scrollViewStyle: {
+    width: "100%",
+    maxHeight: 200,
   },
 });

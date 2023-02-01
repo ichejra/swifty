@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 20,
-    color: "#c0c0c0",
+    color: COLORS.mutedGray,
   },
   buttonContainerStyle: {
     elevation: 4,

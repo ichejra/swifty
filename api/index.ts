@@ -9,7 +9,7 @@ export const api = (accessToken: string) => {
   let config: any = {
     baseURL: "https://api.intra.42.fr/", //! Add to env
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/vnd.api+json",
     },
   };
 
@@ -24,5 +24,3 @@ export const generateToken = async () => {
 
   saveSession(result);
 };
-
-export const getUsersList = () => {};

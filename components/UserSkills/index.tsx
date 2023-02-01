@@ -1,42 +1,30 @@
 import React from "react";
 import * as Progress from "react-native-progress";
 import { StyleSheet, Text, View } from "react-native";
+
 import { COLORS } from "../../base.style";
 
-const skills = [
-  {
-    id: "0",
-    title: "Unix",
-    level: 12.5,
-  },
-  {
-    id: "1",
-    title: "Algorithms & AI",
-    level: 8.57,
-  },
-  {
-    id: "2",
-    title: "Group & interpersonal",
-    level: 8.37,
-  },
-  {
-    id: "3",
-    title: "Organization",
-    level: 8.06,
-  },
-];
+interface ISkillsProps {
+  skills: {
+    id: string;
+    name: string;
+    level: number;
+  }[];
+}
 
-const Skills = () => {
+const Skills = (props: ISkillsProps) => {
+  const { skills } = props;
+
   return (
     <View style={styles.containerStyle}>
       <View style={styles.w90}>
         <Text style={styles.titleStyle}>Skills</Text>
         <View style={styles.paperStyle}>
-          {skills.map(skill => {
+          {skills?.map(skill => {
             return (
-              <View style={styles.mb10}>
+              <View style={styles.mb10} key={skill.id}>
                 <Text style={styles.skillTitle}>
-                  {skill.title} - level {skill.level}
+                  {skill.name} - level {skill.level}
                 </Text>
                 <Progress.Bar
                   progress={skill.level - Math.floor(skill.level)}
@@ -66,26 +54,27 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   containerStyle: {
-    marginVertical: 20,
     width: "100%",
+    marginVertical: 20,
     alignItems: "center",
   },
   titleStyle: {
-    color: COLORS.lightBlack,
-    fontWeight: "bold",
     fontSize: 16,
     marginBottom: 5,
     letterSpacing: 1,
+    fontWeight: "bold",
+    color: COLORS.lightBlack,
   },
   skillTitle: {
-    color: COLORS.lightBlack,
-    fontWeight: "bold",
     marginBottom: 5,
+    fontWeight: "600",
+    fontStyle: "italic",
+    color: COLORS.darkGray,
   },
   paperStyle: {
-    backgroundColor: COLORS.white,
     padding: 15,
-    borderRadius: 15,
     elevation: 4,
+    borderRadius: 15,
+    backgroundColor: COLORS.white,
   },
 });
