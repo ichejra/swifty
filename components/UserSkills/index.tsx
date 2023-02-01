@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   paperStyle: {
     padding: 15,
     elevation: 4,
-    borderRadius: 15,
+    borderRadius: 5,
     backgroundColor: COLORS.white,
   },
 });

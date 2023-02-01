@@ -8,6 +8,7 @@ import {
   PhoneIcon,
   MapPinIcon,
   WalletIcon,
+  LocationIcon,
 } from "../../components/icons";
 import Trophy from "../../components/icons/Trophy";
 import { COLORS } from "../../base.style";
@@ -92,6 +93,15 @@ const UserInfo = (props: IUserInfoProps) => {
             <AtIcon />
             <Text onPress={openMail} style={styles.pressableStyle}>
               {email}
+            </Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <LocationIcon />
+            <Text
+              onPress={openMail}
+              style={[styles.locationStyle, !location && styles.whiteSmoke]}
+            >
+              {location ? location : "unavailable"}
             </Text>
           </View>
         </View>
@@ -194,6 +204,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.aqua,
+  },
+  locationStyle: {
+    fontWeight: "bold",
+    color: COLORS.aqua,
+    marginHorizontal: 5,
+  },
+  whiteSmoke: {
+    color: COLORS.whiteSmoke,
   },
   flex1: {
     flex: 1,

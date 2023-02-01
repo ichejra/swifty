@@ -19,7 +19,7 @@ import {
 import { COLORS } from "../../base.style";
 import { isTokenExpired } from "../../utils";
 import { MainStackParamList } from "../../App";
-import { api, generateToken } from "../../api";
+import { api, refreshToken } from "../../api";
 import CustomHeader from "../../components/CustomHeader";
 import { getSessionData } from "../../utils/localStorage";
 
@@ -37,6 +37,8 @@ type userType = {
   };
 };
 
+//! Add active attr
+
 const SearchResult = (props: SearchResultProps) => {
   const { navigation, route } = props;
   const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +50,13 @@ const SearchResult = (props: SearchResultProps) => {
 
     if (sessionData) {
       if (isTokenExpired(sessionData?.accessTokenExpirationDate)) {
-        await generateToken();
+        console.log("EXPIRED", sessionData);
+        try {
+          await refreshToken(sessionData.refreshToken);
+        } catch (error) {
+          setIsError(true);
+          return;
+        }
       }
       api(sessionData.accessToken)
         .get(`/v2/users?filter[login]=${route?.params?.login}`)

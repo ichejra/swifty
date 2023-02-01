@@ -20,7 +20,12 @@ const UserProjects = (props: IProjectsProps) => {
       <View style={styles.w90}>
         <Text style={styles.titleStyle}>Projects</Text>
         <View style={styles.paperStyle}>
-          <ScrollView style={styles.scrollViewStyle} nestedScrollEnabled>
+          <ScrollView
+            style={styles.scrollViewStyle}
+            nestedScrollEnabled
+            persistentScrollbar={true}
+            showsVerticalScrollIndicator={true}
+          >
             <View style={styles.contentContainer}>
               {projects?.map(project => {
                 if (!project.finalMark) return;
@@ -70,7 +75,7 @@ const styles = StyleSheet.create({
   },
   paperStyle: {
     elevation: 4,
-    borderRadius: 15,
+    borderRadius: 5,
     backgroundColor: COLORS.white,
   },
   rowStyle: {

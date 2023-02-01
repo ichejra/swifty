@@ -7,3 +7,4 @@ export { default as TrophyIcon } from "./Trophy";
 export { default as WalletIcon } from "./Wallet";
 export { default as PersonIcon } from "./Person";
 export { default as ExclamationMarkIcon } from "./ExclamationMark";
+export { default as LocationIcon } from "./Location";

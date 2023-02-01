@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from "react";
-import FastImage from "react-native-fast-image";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
   ActivityIndicator,
   ScrollView,
@@ -8,16 +5,19 @@ import {
   Text,
   View,
 } from "react-native";
+import FastImage from "react-native-fast-image";
+import React, { useEffect, useState } from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
+import { COLORS } from "../../base.style";
+import { isTokenExpired } from "../../utils";
+import { api, refreshToken } from "../../api";
 import { MainStackParamList } from "../../App";
-import CustomHeader from "../../components/CustomHeader";
 import UserInfo from "../../components/UserInfo";
 import Skills from "../../components/UserSkills";
+import CustomHeader from "../../components/CustomHeader";
 import UserProjects from "../../components/UserProjects";
-import { COLORS } from "../../base.style";
 import { getSessionData } from "../../utils/localStorage";
-import { isTokenExpired } from "../../utils";
-import { api, generateToken } from "../../api";
 import { ExclamationMarkIcon } from "../../components/icons";
 
 type UserProfileProps = NativeStackScreenProps<
@@ -106,8 +106,13 @@ const UserProfile = (props: UserProfileProps) => {
 
     if (sessionData) {
       if (isTokenExpired(sessionData?.accessTokenExpirationDate)) {
-        await generateToken();
-        console.log("ReGENERATED");
+        console.log("EXPIRED", sessionData);
+        try {
+          await refreshToken(sessionData.refreshToken);
+        } catch (error) {
+          setIsError(true);
+          return;
+        }
       }
       api(sessionData.accessToken)
         .get(`/v2/users/${route.params.userId}`)
@@ -128,8 +133,6 @@ const UserProfile = (props: UserProfileProps) => {
   useEffect(() => {
     getUserInfo();
   }, []);
-
-  console.log("Hello! I am userInfo ", JSON.stringify(userInfo, null, 4));
 
   return (
     <View style={styles.containerStyle}>

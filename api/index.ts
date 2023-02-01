@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authorize } from "react-native-app-auth";
+import { authorize, refresh } from "react-native-app-auth";
 import { authConfig } from "../utils";
 import { saveSession } from "../utils/localStorage";
 
@@ -21,6 +21,12 @@ export const api = (accessToken: string) => {
 
 export const generateToken = async () => {
   const result = await authorize(authConfig);
+
+  saveSession(result);
+};
+
+export const refreshToken = async (refToken: string) => {
+  const result = await refresh(authConfig, { refreshToken: refToken });
 
   saveSession(result);
 };
