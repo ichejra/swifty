@@ -11,7 +11,7 @@ export const loginFromLocalStorage = async () => {
   return { isAuth };
 };
 
-export const config = {
+export const authConfig = {
   clientId: CLIENT_ID,
   clientSecret: CLIENT_SECRET,
   redirectUrl: REDIRECT_URL,
@@ -24,5 +24,5 @@ export const config = {
 };
 
 export const isTokenExpired = (expirationDate: string | number | Date) => {
-  return Date.now() >= new Date(expirationDate).getTime();
+  return Date.now() >= new Date(expirationDate).getTime() + 3600000;
 };

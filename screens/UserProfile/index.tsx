@@ -5,8 +5,10 @@ import {
   Text,
   View,
 } from "react-native";
+import RNRestart from "react-native-restart";
 import FastImage from "react-native-fast-image";
 import React, { useEffect, useState } from "react";
+
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { COLORS } from "../../base.style";
@@ -106,7 +108,7 @@ const UserProfile = (props: UserProfileProps) => {
 
     if (sessionData) {
       if (isTokenExpired(sessionData?.accessTokenExpirationDate)) {
-        console.log("EXPIRED", sessionData);
+        console.log("Refreshed", sessionData);
         try {
           await refreshToken(sessionData.refreshToken);
         } catch (error) {
@@ -127,6 +129,8 @@ const UserProfile = (props: UserProfileProps) => {
           setIsError(true);
           setIsLoading(false);
         });
+    } else {
+      RNRestart.Restart();
     }
   };
 

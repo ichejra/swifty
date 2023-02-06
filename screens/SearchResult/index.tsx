@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Button } from "@rneui/base";
+import RNRestart from "react-native-restart";
 import FastImage from "react-native-fast-image";
 import React, { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -35,9 +36,8 @@ type userType = {
   avatar: {
     uri: string;
   };
+  active: boolean;
 };
-
-//! Add active attr
 
 const SearchResult = (props: SearchResultProps) => {
   const { navigation, route } = props;
@@ -50,7 +50,7 @@ const SearchResult = (props: SearchResultProps) => {
 
     if (sessionData) {
       if (isTokenExpired(sessionData?.accessTokenExpirationDate)) {
-        console.log("EXPIRED", sessionData);
+        console.log("Refreshed", sessionData);
         try {
           await refreshToken(sessionData.refreshToken);
         } catch (error) {
@@ -67,6 +67,7 @@ const SearchResult = (props: SearchResultProps) => {
               login: user.login,
               displayName: user.displayname,
               avatar: { uri: user.image.link },
+              active: user["active?"],
             };
           });
           setUsers(data);
@@ -77,6 +78,8 @@ const SearchResult = (props: SearchResultProps) => {
           setIsError(true);
           setIsLoading(false);
         });
+    } else {
+      RNRestart.Restart();
     }
   };
 
@@ -116,10 +119,14 @@ const SearchResult = (props: SearchResultProps) => {
         renderItem={({ item }) => {
           return (
             <Pressable
+              disabled={!item.active}
               onPress={() => {
                 navigation.navigate("UserProfile", { userId: item.id });
               }}
-              style={styles.userCardContainer}
+              style={[
+                styles.userCardContainer,
+                !item.active && styles.opacity7,
+              ]}
             >
               <FastImage source={item.avatar} style={styles.avatarStyle} />
               <View style={[styles.mh10, styles.pv5]}>
@@ -220,5 +227,8 @@ const styles = StyleSheet.create({
   loginContainer: {
     flexDirection: "row",
     alignItems: "flex-end",
+  },
+  opacity7: {
+    opacity: 0.7,
   },
 });
