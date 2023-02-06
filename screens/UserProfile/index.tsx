@@ -8,20 +8,19 @@ import {
 import RNRestart from "react-native-restart";
 import FastImage from "react-native-fast-image";
 import React, { useEffect, useState } from "react";
-
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
+import { checkToken } from "../../utils";
 import { COLORS } from "../../base.style";
-import { isTokenExpired } from "../../utils";
 import { api, refreshToken } from "../../api";
 import { MainStackParamList } from "../../App";
 import UserInfo from "../../components/UserInfo";
 import Skills from "../../components/UserSkills";
+import IntraProfile from "../../components/IntraProfile";
 import CustomHeader from "../../components/CustomHeader";
 import UserProjects from "../../components/UserProjects";
 import { getSessionData } from "../../utils/localStorage";
 import { ExclamationMarkIcon } from "../../components/icons";
-import IntraProfile from "../../components/IntraProfile";
 
 type UserProfileProps = NativeStackScreenProps<
   MainStackParamList,
@@ -102,14 +101,11 @@ const UserProfile = (props: UserProfileProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  console.log(route.params.userId);
-
   const getUserInfo = async () => {
     const sessionData = await getSessionData();
 
     if (sessionData) {
-      if (isTokenExpired(sessionData?.accessTokenExpirationDate)) {
-        console.log("Refreshed", sessionData);
+      if (checkToken(sessionData?.accessTokenExpirationDate)) {
         try {
           await refreshToken(sessionData.refreshToken);
         } catch (error) {

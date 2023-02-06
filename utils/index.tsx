@@ -24,5 +24,9 @@ export const authConfig = {
 };
 
 export const isTokenExpired = (expirationDate: string | number | Date) => {
-  return Date.now() >= new Date(expirationDate).getTime() + 3600000;
+  return Date.now() >= new Date(expirationDate).getTime();
+};
+
+export const checkToken = (expirationDate: string | number | Date) => {
+  return Date.now() >= new Date(expirationDate).getTime() - 3600000;
 };

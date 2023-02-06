@@ -33,5 +33,5 @@ export const refreshToken = async (refToken: string) => {
   saveSession(result);
 };
 
-//TODO check refreshToken
+//*DONE check refreshToken
 //TODO check console.log

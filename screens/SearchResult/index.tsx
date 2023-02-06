@@ -17,10 +17,10 @@ import {
   ExclamationMarkIcon,
   PersonIcon,
 } from "../../components/icons";
+import { checkToken } from "../../utils";
 import { COLORS } from "../../base.style";
-import { isTokenExpired } from "../../utils";
-import { MainStackParamList } from "../../App";
 import { api, refreshToken } from "../../api";
+import { MainStackParamList } from "../../App";
 import CustomHeader from "../../components/CustomHeader";
 import { getSessionData } from "../../utils/localStorage";
 
@@ -49,8 +49,7 @@ const SearchResult = (props: SearchResultProps) => {
     const sessionData = await getSessionData();
 
     if (sessionData) {
-      if (isTokenExpired(sessionData?.accessTokenExpirationDate)) {
-        console.log("Refreshed", sessionData);
+      if (checkToken(sessionData?.accessTokenExpirationDate)) {
         try {
           await refreshToken(sessionData.refreshToken);
         } catch (error) {

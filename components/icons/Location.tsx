@@ -4,8 +4,8 @@ import { Path, Svg, SvgProps } from "react-native-svg";
 const Location = (props: SvgProps) => {
   return (
     <Svg
-      width="24"
-      height="24"
+      width="22"
+      height="22"
       viewBox="0 0 24 24"
       strokeWidth="1"
       stroke="#f6f6f6"
