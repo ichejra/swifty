@@ -21,6 +21,7 @@ import CustomHeader from "../../components/CustomHeader";
 import UserProjects from "../../components/UserProjects";
 import { getSessionData } from "../../utils/localStorage";
 import { ExclamationMarkIcon } from "../../components/icons";
+import IntraProfile from "../../components/IntraProfile";
 
 type UserProfileProps = NativeStackScreenProps<
   MainStackParamList,
@@ -153,10 +154,10 @@ const UserProfile = (props: UserProfileProps) => {
         {isLoading && (
           <ActivityIndicator color={COLORS.aqua} style={styles.mt100} />
         )}
-        {isError && ( //! add style
-          <View style={{}}>
+        {isError && (
+          <View style={styles.errorContainer}>
             <ExclamationMarkIcon />
-            <Text style={{}}>Oooops! An error has occured! ☹️</Text>
+            <Text>Oooops! An error has occured! ☹️</Text>
           </View>
         )}
         {userInfo && !isLoading && !isError && (
@@ -167,6 +168,7 @@ const UserProfile = (props: UserProfileProps) => {
               resizeMode={"cover"}
             />
             <UserInfo personalInfo={userInfo.personalInfo} />
+            <IntraProfile intraLink={userInfo.personalInfo.intraLink} />
             <Skills skills={userInfo.skills} />
             <UserProjects projects={userInfo.projects} />
           </>
@@ -194,5 +196,9 @@ const styles = StyleSheet.create({
   },
   mt100: {
     marginTop: 100,
+  },
+  errorContainer: {
+    marginTop: 200,
+    alignItems: "center",
   },
 });

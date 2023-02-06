@@ -1,13 +1,15 @@
 import axios from "axios";
 import { authorize, refresh } from "react-native-app-auth";
+
+import { BASE_URL } from "@env";
 import { authConfig } from "../utils";
 import { saveSession } from "../utils/localStorage";
 
 export const api = (accessToken: string) => {
-  console.log(accessToken);
+  console.log(accessToken); //! Log
 
   let config: any = {
-    baseURL: "https://api.intra.42.fr/", //! Add to env
+    baseURL: BASE_URL,
     headers: {
       "Content-Type": "application/vnd.api+json",
     },
@@ -30,3 +32,6 @@ export const refreshToken = async (refToken: string) => {
 
   saveSession(result);
 };
+
+//TODO check refreshToken
+//TODO check console.log

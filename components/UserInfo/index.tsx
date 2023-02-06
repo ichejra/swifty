@@ -42,7 +42,6 @@ const UserInfo = (props: IUserInfoProps) => {
       avatar,
       campus,
       location,
-      intraLink,
       displayName,
       correctionPoint,
     },
@@ -90,18 +89,18 @@ const UserInfo = (props: IUserInfoProps) => {
             </View>
           )}
           <View style={styles.fieldContainer}>
-            <AtIcon />
-            <Text onPress={openMail} style={styles.pressableStyle}>
-              {email}
-            </Text>
-          </View>
-          <View style={styles.fieldContainer}>
             <LocationIcon />
             <Text
               onPress={openMail}
               style={[styles.locationStyle, !location && styles.whiteSmoke]}
             >
               {location ? location : "unavailable"}
+            </Text>
+          </View>
+          <View style={styles.fieldContainer}>
+            <AtIcon />
+            <Text onPress={openMail} style={styles.pressableStyle}>
+              {email}
             </Text>
           </View>
         </View>
