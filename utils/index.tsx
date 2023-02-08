@@ -19,7 +19,6 @@ export const authConfig = {
   serviceConfiguration: {
     authorizationEndpoint: "https://api.intra.42.fr/oauth/authorize",
     tokenEndpoint: "https://api.intra.42.fr/oauth/token",
-    // revocationEndpoint: "https://api.intra.42.fr/oauth/revoke",
   },
 };
 

@@ -6,8 +6,6 @@ import { authConfig } from "../utils";
 import { saveSession } from "../utils/localStorage";
 
 export const api = (accessToken: string) => {
-  console.log(accessToken); //! Log
-
   let config: any = {
     baseURL: BASE_URL,
     headers: {
@@ -32,6 +30,3 @@ export const refreshToken = async (refToken: string) => {
 
   saveSession(result);
 };
-
-//*DONE check refreshToken
-//TODO check console.log
