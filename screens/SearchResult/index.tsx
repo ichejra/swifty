@@ -124,7 +124,7 @@ const SearchResult = (props: SearchResultProps) => {
               }}
               style={[
                 styles.userCardContainer,
-                !item.active && styles.opacity7,
+                !item.active && styles.opacity5,
               ]}
             >
               <FastImage source={item.avatar} style={styles.avatarStyle} />
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-end",
   },
-  opacity7: {
-    opacity: 0.7,
+  opacity5: {
+    opacity: 0.5,
   },
 });
